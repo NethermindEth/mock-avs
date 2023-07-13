@@ -3,10 +3,10 @@ node_version: v3.0.0
 name: python-mock-server
 upgrade: recommended
 hardware_requirements:
-  min_cpu_cores: 1
-  min_ram: 2048
-  min_free_space: 1024
-  stop_if_requirements_are_not_met: true
+  min_cpu_cores: 10
+  min_ram: 16384
+  min_free_space: 102400
+  stop_if_requirements_are_not_met: false
 plugin:
   build_from: https://github.com/NethermindEth/mock-avs.git#main:plugin
 profiles:

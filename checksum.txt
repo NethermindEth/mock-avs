@@ -1,4 +1,4 @@
-2d169766252f678023b2a22c33bfe6acc7bfa3e5ca327700bb083c16008935fd  mock-avs/checksum.txt
+a0702f33f1224e49897c473418a1de68cf9564128e94986414bd4078a8ca92d2  mock-avs/checksum.txt
 6d2e1c0fa3ca08df96fad7be90f474d92ea8d9153bc18bacfb8c2414a218154c  mock-avs/pkg/health-checker/docker-compose.yml
 793c4793d816fbdce28fc5d0579836317e694e09224df6f23121811fd69817fe  mock-avs/pkg/health-checker/.env
 6613011225ac8d2f2a8f5c52624c9476f04b5377ffeb1b01e4fd05a55a13176c  mock-avs/pkg/health-checker/profile.yml
@@ -6,7 +6,7 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  mock-avs/pkg/h
 6f342c3439757c44ad1812dc67c6207228eb7377c439ba55d522af1aeb61111d  mock-avs/pkg/health-checker/src/app/main.py
 8e6c291cdab0116ca83e05c9de33c05bc028a0a113b380002c833fa25db43ddd  mock-avs/pkg/health-checker/src/Dockerfile
 5a0dc23c1a8e1ce10836baf8884190d877ef21a64acbcda93121de18230bc2ee  mock-avs/pkg/health-checker/src/requirements.txt
-1f1e2927fcfd3cdc2df12d5fb94d6d05b900d2569a22b25ea2cc6e006c1a34f5  mock-avs/pkg/manifest.yml
+3b073def047004cf6cd3887e5efdae294567aeb9c5c506c98832ce97baec7c90  mock-avs/pkg/manifest.yml
 8dde2d97bb70479ccc4b415a32011e2c6b4912645ddb20537fda5fcbcdbeed0e  mock-avs/pkg/option-returner/docker-compose.yml
 e119874d4168b5ee235c0da930763dec2033d14de5f33de341b224fea21bd28f  mock-avs/pkg/option-returner/.env
 5e1ee471898252cc2ae9c135c07728f50c2d827b804c4b746b99749fab739c71  mock-avs/pkg/option-returner/profile.yml
