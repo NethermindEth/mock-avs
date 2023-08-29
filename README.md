@@ -1,6 +1,6 @@
 # mock-avs-src
 
-This repository contains the source code of services used in the [mock-avs](https://github.com/NethermindEth/mock-avs) project.
+This repository contains the source code of services and plugin used in the [mock-avs](https://github.com/NethermindEth/mock-avs) project.
 
 ## Build services images
 
@@ -21,3 +21,11 @@ docker build -t mock-avs-health-checker:latest https://github.com/NethermindEth/
 ```
 
 This command generates the docker image `mock-avs-health-checker:latest` which can be used to run the service.
+
+### Build `plugin` image
+
+```bash
+docker build -t mock-avs-plugin:latest https://github.com/NethermidEth/mock-avs-src.git#main:plugin
+```
+
+This command generates the docker image `mock-avs-plugin:latest` which can be used to run the plugin.
