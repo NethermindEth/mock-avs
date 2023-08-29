@@ -25,7 +25,7 @@ This command generates the docker image `mock-avs-health-checker:latest` which c
 ### Build `plugin` image
 
 ```bash
-docker build -t mock-avs-plugin:latest https://github.com/NethermidEth/mock-avs-src.git#main:plugin
+docker build -t mock-avs-plugin:latest https://github.com/NethermindEth/mock-avs-src.git#main:plugin
 ```
 
 This command generates the docker image `mock-avs-plugin:latest` which can be used to run the plugin.
