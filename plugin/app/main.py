@@ -1,7 +1,11 @@
 import requests
+import io
+import json
+import os
 
 host = "main-service"
 port = 8080
+
 
 def health_check(avs_target: str):
     # Make request to AVS health check endpoint
@@ -21,13 +25,26 @@ def health_check(avs_target: str):
     except Exception as e:
         print(f"AVS is down, got exception: {e}")
 
+
+def check_paths(paths: io.TextIOWrapper):
+    if paths == None:
+        return
+    paths_list = json.load(paths)
+    for path in paths_list:
+        if not os.path.exists(path):
+            print(f"File {path} does not exist")
+            exit(1)
+
+
 if __name__ == "__main__":
     # Get arguments
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default=host)
     parser.add_argument("--port", type=int, default=port)
+    parser.add_argument("--check-paths", type=argparse.FileType("r"))
     args = parser.parse_args()
     host = args.host
     port = args.port
+    check_paths(args.check_paths)
     health_check(f"{host}:{port}")
