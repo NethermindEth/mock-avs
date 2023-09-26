@@ -30,8 +30,7 @@ EIGEN_REGISTERED_STAKES = Gauge(
 )
 EIGEN_PERFORMANCE_SCORE = Gauge(
     'eigen_performance_score',
-    'The performance metric is a score between 0 and 100 and each developer can define their own way of calculating the score. The score is calculated based on the performance of the Node and the performance of the backing services.',
-    labelnames=[]
+    'The performance metric is a score between 0 and 100 and each developer can define their own way of calculating the score. The score is calculated based on the performance of the Node and the performance of the backing services.'
 )
 EIGEN_RPC_REQUEST_DURATION_SECONDS = Histogram(
     'eigen_rpc_request_duration_seconds',
@@ -140,14 +139,13 @@ class BackgroundTasks(threading.Thread):
                 token="ETH",
                 unit="ether",
                 strategy="mock-avs-eth-strategy"
-            ).set(self.eth_balance)
+            ).set(self.eth_stakes)
             EIGEN_REGISTERED_STAKES.labels(
                 token="EGN",
                 unit="eigen",
                 strategy="mock-avs-egn-strategy"
-            ).set(self.egn_balance)
-            EIGEN_PERFORMANCE_SCORE.labels(
-            ).set(random.randint(80, 100))
+            ).set(self.egn_stakes)
+            EIGEN_PERFORMANCE_SCORE.set(random.randint(80, 100))
             EIGEN_RPC_REQUEST_DURATION_SECONDS.labels(
                 method="eth_getBlockByNumber",
                 client_version="nethermind/1.19.0"
