@@ -14,39 +14,33 @@ app = FastAPI()
 # ***** Prometheus metrics *****
 EIGEN_FEES_EARNED_TOTAL = Counter(
     'eigen_fees_earned_total',
-    'The amount of fees earned in <token>',
-    labelnames=["avs_name", "token"]
+    'The amount of fees earned in <unit> of underlying <token> in the <strategy> contract.',
+    labelnames=["token", "unit", "strategy"]
 )
-EIGEN_SLASHING_INCURRED_TOTAL = Counter(
-    'eigen_slashing_incurred_total',
-    'The amount of slashing incurred in <token>',
-    labelnames=["avs_name", "token"]
+EIGEN_SLASHING_STATUS = Gauge(
+    'eigen_slashing_status',
+    'Slashing status of the node. 1 if the node is being slashed, 0 otherwise.',
+    labelnames=["avs"]
 )
-EIGEN_BALANCE_TOTAL = Gauge(
-    'eigen_balance_total',
-    'Node total balance in <token>',
-    labelnames=["avs_name", "token"]
+EIGEN_REGISTERED_STAKES = Gauge(
+    'eigen_registered_stakes',
+    'Operator stakes defined by the AVS in <unit> of underlying <token> in the <strategy> contract.',
+    labelnames=["token", "unit", "strategy"]
 )
 EIGEN_PERFORMANCE_SCORE = Gauge(
     'eigen_performance_score',
     'The performance metric is a score between 0 and 100 and each developer can define their own way of calculating the score. The score is calculated based on the performance of the Node and the performance of the backing services.',
-    labelnames=["avs_name"]
+    labelnames=[]
 )
 EIGEN_RPC_REQUEST_DURATION_SECONDS = Histogram(
     'eigen_rpc_request_duration_seconds',
     'Duration of json-rpc <method> in seconds',
-    labelnames=["avs_name", "method", "client", "version"]
+    labelnames=["method", "client_version"]
 )
 EIGEN_RPC_REQUEST_TOTAL = Counter(
     'eigen_rpc_request_total',
     'Total of json-rpc <method> requests',
-    labelnames=["avs_name", "method", "client", "version"]
-)
-EIGEN_VERSION = Gauge(
-    'eigen_version',
-    'Version metadata',
-    labelnames=["avs_name", "commit", "runtime", "version", "spec_version"]
-).labels(avs_name="mock-avs", commit="84391eb8d93bd3aa0d94c530f3b9bba15ae72cdc", runtime="python", version=version, spec_version="v0.1.0")
+    labelnames=["method", "client_version"]
 
 app.mount("/metrics", make_asgi_app())
 # ***** Prometheus metrics *****
@@ -116,68 +110,57 @@ class BackgroundTasks(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
-        self.eth_balance = 32
-        self.egn_balance = 50
+        self.eth_stakes = 32
+        self.egn_stakes = 50
 
     def run(self) -> None:
         while True:
             earned_eth = random.random()
-            slashing_eth = random.random()*0.1
-            self.eth_balance += earned_eth - slashing_eth
+            self.eth_stakes += earned_eth
             earned_egn = random.random()
-            slashing_egn = random.random()*0.1
-            self.egn_balance += earned_egn - slashing_egn
+            self.egn_stakes += earned_egn
+            slashing = 0 if random.random() < 0.6 else 1
 
             EIGEN_FEES_EARNED_TOTAL.labels(
-                avs_name="mock-avs",
-                token="ETH"
+                token="ETH",
+                unit="ether",
+                strategy="mock-avs-eth-strategy"
             ).inc(earned_eth)
             EIGEN_FEES_EARNED_TOTAL.labels(
-                avs_name="mock-avs",
-                token="EGN"
+                token="EGN",
+                unit="eigen",
+                strategy="mock-avs-egn-strategy"
             ).inc(earned_egn)
-            EIGEN_SLASHING_INCURRED_TOTAL.labels(
-                avs_name="mock-avs",
-                token="ETH"
-            ).inc(slashing_eth)
-            EIGEN_SLASHING_INCURRED_TOTAL.labels(
-                avs_name="mock-avs",
-                token="EGN"
-            ).inc(slashing_egn)
-            EIGEN_BALANCE_TOTAL.labels(
-                avs_name="mock-avs",
-                token="ETH"
+            EIGEN_SLASHING_STATUS.labels(
+                avs="mock-avs-option-returner",
+            ).set(slashing)
+            EIGEN_REGISTERED_STAKES.labels(
+                token="ETH",
+                unit="ether",
+                strategy="mock-avs-eth-strategy"
             ).set(self.eth_balance)
-            EIGEN_BALANCE_TOTAL.labels(
-                avs_name="mock-avs",
-                token="EGN"
+            EIGEN_REGISTERED_STAKES.labels(
+                token="EGN",
+                unit="eigen",
+                strategy="mock-avs-egn-strategy"
             ).set(self.egn_balance)
             EIGEN_PERFORMANCE_SCORE.labels(
-                avs_name="mock-avs"
             ).set(random.randint(80, 100))
             EIGEN_RPC_REQUEST_DURATION_SECONDS.labels(
-                avs_name="mock-avs",
                 method="eth_getBlockByNumber",
-                client="nethermind",
-                version="1.19.0"
+                client_version="nethermind/1.19.0"
             ).observe(random.random()*0.3)
             EIGEN_RPC_REQUEST_TOTAL.labels(
-                avs_name="mock-avs",
                 method="eth_getBlockByNumber",
-                client="nethermind",
-                version="1.19.0"
+                client_version="nethermind/1.19.0" 
             ).inc(1)
             EIGEN_RPC_REQUEST_DURATION_SECONDS.labels(
-                avs_name="mock-avs",
-                method="eth_call",
-                client="nethermind",
-                version="1.19.0"
+                method="eth_getBalance",
+                client_version="nethermind/1.19.0"
             ).observe(random.random()*0.5)
             EIGEN_RPC_REQUEST_TOTAL.labels(
-                avs_name="mock-avs",
-                method="eth_call",
-                client="nethermind",
-                version="1.19.0"
+                method="eth_getBalance",
+                client_version="nethermind/1.19.0"
             ).inc(1)
             time.sleep(5)
 
