@@ -1,6 +1,6 @@
-# mock-avs-src
+# mock-avs
 
-This repository contains the source code of services and plugin used in the [mock-avs](https://github.com/NethermindEth/mock-avs) project.
+This repository contains the source code of services and plugin used in the [mock-avs-pkg](https://github.com/NethermindEth/mock-avs-pkg) project.
 
 ## Build services images
 
