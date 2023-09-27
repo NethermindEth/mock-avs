@@ -9,23 +9,23 @@ This repository contains two services: `option-returner` and `health-checker`, t
 ### Build `option-returner` image
 
 ```bash
-docker build -t mock-avs-option-returner:v0.1.0 https://github.com/NethermindEth/mock-avs-src.git#v0.1.0:option-returner
+docker build -t mock-avs-option-returner:v0.2.0 https://github.com/NethermindEth/mock-avs-src.git#v0.2.0:option-returner
 ```
 
-This command generates the docker image `mock-avs-option-returner:v0.1.0` which can be used to run the service.
+This command generates the docker image `mock-avs-option-returner:v0.2.0` which can be used to run the service.
 
 ### Build `health-checker` image
 
 ```bash
-docker build -t mock-avs-health-checker:v0.1.0 https://github.com/NethermindEth/mock-avs-src.git#v0.1.0:health-checker
+docker build -t mock-avs-health-checker:v0.2.0 https://github.com/NethermindEth/mock-avs-src.git#v0.2.0:health-checker
 ```
 
-This command generates the docker image `mock-avs-health-checker:v0.1.0` which can be used to run the service.
+This command generates the docker image `mock-avs-health-checker:v0.2.0` which can be used to run the service.
 
 ### Build `plugin` image
 
 ```bash
-docker build -t mock-avs-plugin:v0.1.0 https://github.com/NethermindEth/mock-avs-src.git#v0.1.0:plugin
+docker build -t mock-avs-plugin:v0.2.0 https://github.com/NethermindEth/mock-avs-src.git#v0.2.0:plugin
 ```
 
-This command generates the docker image `mock-avs-plugin:v0.1.0` which can be used to run the plugin.
+This command generates the docker image `mock-avs-plugin:v0.2.0` which can be used to run the plugin.
