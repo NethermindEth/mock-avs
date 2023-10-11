@@ -6,7 +6,7 @@ import random
 import os
 
 
-version = os.getenv("VERSION", "v3.0.0")
+version = os.getenv("VERSION", "")
 health = 200
 
 app = FastAPI()
